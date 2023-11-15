@@ -1,2 +1,7 @@
 fastapi
 uvicorn
+chromadb
+sentence_transformers
+spacy
+langchain
+llama-cpp-python
