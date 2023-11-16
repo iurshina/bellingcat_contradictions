@@ -1,6 +1,10 @@
-import {FolderInputForm} from './components/Selector';
+import AppDataProvider from './AppDataProvider';
+import {Window} from './components/Window';
 export default function App() {
   return (
-      <FolderInputForm />
+      <AppDataProvider>
+        <Window />
+      </AppDataProvider>
+
   );
 }

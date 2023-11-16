@@ -3,15 +3,15 @@ import { AppConfigUrls } from '../AppConfigs';
 
 interface CollectionDataModel {
   path: string,
-  name: string
+  collection_name: string
 }
 
 const sendCollectionData = () => {
   const send = async (path: string, name: string) => {
 
-    const body: CollectionDataModel = { 'path': path, 'name': name };
+    const body: CollectionDataModel = { 'path': path, 'collection_name': name };
 
-    await axios.post(
+    return await axios.post(
         AppConfigUrls.baseUrl + AppConfigUrls.collection.setup,
         body
     );
