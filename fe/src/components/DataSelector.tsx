@@ -1,20 +1,15 @@
-import React, { FormEvent, useRef } from 'react';
+import React, {FormEvent, useRef, useState} from 'react';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import styled from 'styled-components';
 
 import sendCollectionData from '../hooks/sendCollectionData';
-
-const WrapperContainer = styled.div`
-  display: grid;
-  height: 100vh;
-  place-items: center;
-`;
+import reloadCollections from "../hooks/reloadCollections";
 
 const CollectionWindow = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  width: 520px;
+  width: 420px;
   height: 420px;
   box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
   padding-top: 30px;
@@ -95,46 +90,56 @@ const ButtonContainer = styled.div<{
 }
 `;
 
+const Description = styled.p<{
+    $color: string,
+    $size: string
+}>`
+  color: white;
+  margin-bottom: 30px;
+`;
+
 export const FolderInputForm: React.FC = () => {
     const collectionDirRef = useRef<HTMLInputElement>(null);
     const collectionNameRef = useRef<HTMLInputElement>(null);
     const { send } = sendCollectionData();
+    const [ statusMessage, setStatusMessage ] = useState<string>('');
+    const { reload } = reloadCollections();
 
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (collectionDirRef.current && collectionDirRef.current.value && collectionNameRef.current && collectionNameRef.current.value) {
             try {
-                await send(collectionDirRef.current.value, collectionNameRef.current.value);
-
+                const response = await send(collectionDirRef.current.value, collectionNameRef.current.value);
+                setStatusMessage(response.data.message);
             } catch (error) {
                 console.error(error);
             }
+            await reload();
             collectionDirRef.current.value = '';
             collectionNameRef.current.value = '';
         }
     }
 
     return (
-        <div className={"modal"}>
-            <WrapperContainer>
-                <CollectionWindow>
-                    <Title>Load the data</Title>
-                    <form onSubmit={e => onSubmit(e)}>
-                        <InputContainer>
-                            <StyledInput type="text" placeholder="Enter directory" ref={ collectionDirRef } />
-                        </InputContainer>
-                        <InputContainer>
-                            <StyledInput type="text" placeholder="Name your collection" ref={ collectionNameRef } />
-                        </InputContainer>
-                        <ButtonContainer $flex="0" $padding="0" $active={true} $size="3.2em" $borderRadius="50%">
-                            <button>
-                                <AiOutlineArrowRight color='#fff' size="1.5em" />
-                            </button>
-                        </ButtonContainer>
-                    </form>
-                </CollectionWindow>
-            </WrapperContainer>
-        </div>
+        <CollectionWindow>
+            <Title>Load the data</Title>
+            <form onSubmit={e => onSubmit(e)}>
+                <InputContainer>
+                    <StyledInput type="text" placeholder="Enter directory" ref={ collectionDirRef } />
+                </InputContainer>
+                <InputContainer>
+                    <StyledInput type="text" placeholder="Name your collection" ref={ collectionNameRef } />
+                </InputContainer>
+                <ButtonContainer $flex="0" $padding="0" $active={true} $size="3.2em" $borderRadius="50%">
+                    <button>
+                        <AiOutlineArrowRight color='#fff' size="1.5em" />
+                    </button>
+                </ButtonContainer>
+                <Description $color='#000' $size='1.0em'>
+                    {statusMessage}
+                </Description>
+            </form>
+        </CollectionWindow>
     )
 }
