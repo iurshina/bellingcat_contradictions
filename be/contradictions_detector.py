@@ -4,6 +4,8 @@ from langchain.chains.llm import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+from langchain.cache import SQLiteCache
+import langchain
 
 import itertools
 
@@ -21,6 +23,7 @@ OPEN_AI_KEY = os.getenv("OPEN_AI_KEY")
 os.environ["OPENAI_API_KEY"] = OPEN_AI_KEY
 
 logger = setup_logger('contr_detector_logger', 'app.log')
+langchain.llm_cache = SQLiteCache(database_path=".langchain.db")
 
 
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
@@ -63,7 +66,7 @@ def detect_contradictions(documents, metadatas, model_type: str):
                 logger.info(f"Contradiction: {doc1} {doc2}")
                 print(f"Contradiction: {doc1} {doc2}")
                 contrs.append(((doc1, meta1), (doc2, meta2)))
-                break # TODO: remove
+                # break # TODO: remove
             else:
                 logger.info(f"No contradiction: {doc1} {doc2}")
                 print(f"No contradiction: {doc1} {doc2}")
@@ -85,4 +88,6 @@ def detect_contradictions(documents, metadatas, model_type: str):
                 logger.info(f"No contradiction: {doc1} {doc2}")
                 print(f"No contradiction: {doc1} {doc2}")
     
+    print("Done with checking for contradictions")
+    print(contrs)
     return contrs

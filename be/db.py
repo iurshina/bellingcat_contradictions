@@ -51,7 +51,7 @@ def fetch_data_for_topic(topic: str, collection_name: str):
 
     results = collection.query(
         query_texts=[topic],
-        n_results=20,
+        n_results=4,
         # include=[ "documents", "metadata"]
     )   
 
