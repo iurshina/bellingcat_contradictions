@@ -29,7 +29,7 @@ async def load_data(background_tasks: BackgroundTasks, request: DirectoryPath):
 @app.post("/process/")
 def process(request: ModelRequest):
     documents = fetch_data_for_topic(collection_name=request.collection_name, topic=request.topic)
-    # TODO: add OpenAI, figure out llama2 - now it fails on my machine
+    # TODO: figure out llama2 - now it fails on my machine
     # TODO: make it async/kafka or sth?
     # contradictions = detect_contradictions(documents=documents, model_type=request.model_type)
     return {"model_type": request.model_type, "topic": request.topic, "data": [("Statement", "Contr statement")]}
