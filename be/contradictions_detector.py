@@ -47,10 +47,13 @@ prompt = PromptTemplate.from_template(prompt_template)
 llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo", openai_api_key=OPEN_AI_KEY)
 llm_chain = LLMChain(llm=llm, prompt=prompt)
 
-def detect_contradictions(documents, model_type: str):
+def detect_contradictions(documents, metadatas, model_type: str):
     contrs = []
-    for doc1, doc2 in itertools.combinations(documents[:2], 2):
-        # print("Prompt: " + prompt)
+    for doc1, doc2 in itertools.combinations(zip(documents, metadatas), 2):
+        # print(doc1)
+
+        doc1, meta1 = doc1
+        doc2, meta2 = doc2
 
         if model_type == "openAI":
             llm = llm_chain
@@ -59,8 +62,8 @@ def detect_contradictions(documents, model_type: str):
             if "yes" in result['text'].lower():
                 logger.info(f"Contradiction: {doc1} {doc2}")
                 print(f"Contradiction: {doc1} {doc2}")
-                # TODO: fetch context by metadata
-                contrs((doc1, doc2))
+                contrs.append(((doc1, meta1), (doc2, meta2)))
+                break # TODO: remove
             else:
                 logger.info(f"No contradiction: {doc1} {doc2}")
                 print(f"No contradiction: {doc1} {doc2}")
@@ -77,8 +80,7 @@ def detect_contradictions(documents, model_type: str):
             if "yes" in llm(prompt).lower():
                 logger.info(f"Contradiction: {doc1} {doc2}")
                 print(f"Contradiction: {doc1} {doc2}")
-                # TODO: fetch context by metadata
-                contrs((doc1, doc2))
+                contrs.append(((doc1, meta1), (doc2, meta2)))
             else:
                 logger.info(f"No contradiction: {doc1} {doc2}")
                 print(f"No contradiction: {doc1} {doc2}")
