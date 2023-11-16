@@ -7,7 +7,7 @@ It aims to find contradictions in multilingual textual data. One can create a fo
 
 # TODOs
 
-TODOs from code (add context to the statements)
+Add more data, more examples, add some preprocessing to remove too short sentences, etc
 
 TODOs from code (Background tasks, callbacks to the UI, Kafka)
 
@@ -15,11 +15,15 @@ TODOs from code (Take prompt to a file to make configurable)
 
 Add more file formats: PDFs, CSVs...
 
+Try other embeddings, the current ones don't seem to be awesome
+
+Add more context to documents
+
 
 # Future work
 
-Detect and offer topics for the loaded data?
+Switch to a fine-tuned opensource model, like Llama2
 
-Add more languages to the data (German, Farsi?)
+Detect and offer topics for the loaded data?
 
 Add feedback loop from the user, to show if these are the contradictions or not.
