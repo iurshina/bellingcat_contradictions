@@ -11,9 +11,18 @@ const sendCollectionData = () => {
 
     const body: CollectionDataModel = { 'path': path, 'collection_name': name };
 
+    const config = {
+      withCredentials: true,
+      headers: {
+        'accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    };
+
     return await axios.post(
         AppConfigUrls.baseUrl + AppConfigUrls.collection.setup,
-        body
+        body,
+        config
     );
   };
 

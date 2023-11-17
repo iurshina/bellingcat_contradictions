@@ -10,11 +10,20 @@ interface ProcessCollectionDataModel {
 const processCollection = () => {
     const process = async (model: string, topic: string, name: string) => {
 
-        const body: ProcessCollectionDataModel = { 'model_type': model, 'topic': topic, 'collection_name': name };
+        const body: ProcessCollectionDataModel = { 'model_type': model, 'topic': topic, 'collection_name': name }
+
+        const config = {
+            withCredentials: true,
+            headers: {
+                'accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        };
 
         return await axios.post(
             AppConfigUrls.baseUrl + AppConfigUrls.collection.process,
-            body
+            body,
+            config
         );
     };
 
