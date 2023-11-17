@@ -4,7 +4,7 @@
 
 > python -m spacy download en_core_web_sm
 
-> uvicorn app:app --reload
+> uvicorn app:app --reload --host localhost --port 8080
 
 Then you will have the backend running at http://127.0.0.1:8000
 
