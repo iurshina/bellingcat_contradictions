@@ -4,9 +4,9 @@ This is a project developed during Bellingcat hackathon Fall 2023.
 
 Team name: Bienenstich (Anastasiia Iurshina and Kristina Nedzvetskaia)
 
-The project aims to find contradictions in multilingual textual data with. The intended use case was finding contradictions in news data.
+The project aims to find contradictions in multilingual textual data. The intended use case was finding contradictions in news data.
 
-One can create a folder with text data in different formats (.txt, .pdf.). It is split into sentenses and stored in a vector database (chromaDB), then one can provide a topic or a statement for which we will look for contradictions. Related statements will be found in the DB and then the pairs given to a LLM (currently OpenAI's API, chatgpt-3.5) to detect contradictions. After this, the detected contradictions with some context are displayed on the UI.
+One can create a folder with text data in different formats (.txt at the memoment). The texts are split into sentenses and stored in a vector database (chromaDB), then one can provide a topic or a statement for which we will look for contradictions. Related statements will be found in the DB and then the pairs given to a LLM (currently OpenAI's API, chatgpt-3.5) to detect contradictions. After this, the detected contradictions with some context are displayed on the UI.
 
 # How to run the project 
 
@@ -20,7 +20,7 @@ Add more extensive preprocessing to remove too short sentences, errors of parsin
 
 Add callbacks from backend to UI, scheduler for tasks
 
-Make the prompt and model name configurable through config files
+Make the prompt and model names configurable through a config file
 
 Add more file formats: PDFs, CSVs...
 
