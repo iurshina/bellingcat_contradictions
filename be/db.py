@@ -15,6 +15,7 @@ client = chromadb.PersistentClient(path="db/")
 
 # https://www.sbert.net/docs/pretrained_models.html
 sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="paraphrase-multilingual-mpnet-base-v2")
+# OpenAI embeddigs
 
 def create_collection(collection_name: str, path: str):
     try:
