@@ -8,7 +8,7 @@ The project aims to find contradictions in multilingual textual data. The intend
 
 One can create a folder with text data in different formats (.txt at the memoment). The texts are split into sentenses and stored in a vector database (chromaDB), then one can provide a topic or a statement for which we will look for contradictions. Related statements will be found in the DB and then the pairs given to a LLM (currently OpenAI's API, chatgpt-3.5) to detect contradictions. After this, the detected contradictions with some context are displayed on the UI.
 
-![Project](Contr.jpg)
+![Project](Contr.png)
 
 Note: the current demo works with a very limited dataset (10 short articles). 
 
