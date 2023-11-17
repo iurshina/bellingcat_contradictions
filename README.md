@@ -34,6 +34,8 @@ Add more context to documents
 
 # Future work
 
+Detecting "statements" in the sentenes extracted from the DB. To reduce the number of checks with the LLM (as well as the number of errors).
+
 Switch to a fine-tuned opensource model, like Llama2 quanized and possibly fine-tuned on OpenAI's output
 
 Detect and offer topics for the loaded data instead of entering a topic
