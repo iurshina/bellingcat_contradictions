@@ -14,9 +14,9 @@ Note: the current demo works with a very limited dataset (10 short articles).
 
 # How to run the project 
 
-Follow be's README.md to install and run it
+Follow backend's README.md to install and run it (be folder)
 
-TODO
+Follow frontend's README.md to install and run it (fe folder)
 
 # TODOs
 
