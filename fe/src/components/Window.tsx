@@ -6,6 +6,7 @@ import { ProcessForm } from './DataProcessor';
 
 const WrapperContainer = styled.div`
   display: flex;
+  flex-direction: column;
   height: 100vh;
   place-items: center;
   margin: 50px;

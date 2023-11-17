@@ -5,13 +5,25 @@ export interface IAppDataContext {
   models: string[];
   collections: string[];
   setCollections: (collections: string[]) => void;
+  model: string,
+  setModel: (model: string) => void;
+  collection: string,
+  setCollection: (collection: string) => void;
+  topic: string,
+  setTopic: (topic: string) => void
 }
 
 
 const initialContext: IAppDataContext = {
-  models: ["OpenAi", "OpenOrca-Platypus2-13B-Q4_K_M"],
+  models: ["openAI", "llama"],
   collections: [],
-  setCollections: () => null
+  setCollections: () => null,
+  model: "",
+  setModel: () => null,
+  collection: "",
+  setCollection: () => null,
+  topic: "",
+  setTopic: () => null,
 };
 
 export const AppDataContext = createContext<IAppDataContext>(initialContext);

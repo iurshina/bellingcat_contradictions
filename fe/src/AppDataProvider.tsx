@@ -1,29 +1,24 @@
-import {FC, PropsWithChildren, useContext, useEffect} from 'react';
+import {FC, PropsWithChildren, useContext} from 'react';
 import { AppDataContext } from './AppDataContext';
-import { useAxios } from './useAxios';
-import { listCollections } from "./functions/listCollections";
 
 const AppDataProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   const { models } = useContext(AppDataContext);
   const { collections, setCollections } = useContext(AppDataContext);
-  const { axios } = useAxios();
+  const { model, setModel } = useContext(AppDataContext);
+  const { collection, setCollection } = useContext(AppDataContext);
+  const { topic, setTopic } = useContext(AppDataContext);
 
   const value = {
     models: models,
     collections: collections,
-    setCollections: setCollections
+    setCollections: setCollections,
+    model: model,
+    setModel: setModel,
+    collection: collection,
+    setCollection: setCollection,
+    topic: topic,
+    setTopic: setTopic
   }
-
-  useEffect(() => {
-
-    Promise.all([listCollections(axios)])
-      .then(([response]) => {
-        setCollections(response.data)
-      })
-      .catch(function (err) {
-        console.log(err.message);
-      });
-  }, []);
 
   return (
     <AppDataContext.Provider value={value}>{children}</AppDataContext.Provider>

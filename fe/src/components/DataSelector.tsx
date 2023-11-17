@@ -3,13 +3,12 @@ import { AiOutlineArrowRight } from 'react-icons/ai';
 import styled from 'styled-components';
 
 import sendCollectionData from '../hooks/sendCollectionData';
-import reloadCollections from "../hooks/reloadCollections";
 
 const CollectionWindow = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  width: 420px;
+  width: 900px;
   height: 420px;
   box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
   padding-top: 30px;
@@ -103,7 +102,6 @@ export const FolderInputForm: React.FC = () => {
     const collectionNameRef = useRef<HTMLInputElement>(null);
     const { send } = sendCollectionData();
     const [ statusMessage, setStatusMessage ] = useState<string>('');
-    const { reload } = reloadCollections();
 
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -111,13 +109,11 @@ export const FolderInputForm: React.FC = () => {
         if (collectionDirRef.current && collectionDirRef.current.value && collectionNameRef.current && collectionNameRef.current.value) {
             try {
                 const response = await send(collectionDirRef.current.value, collectionNameRef.current.value);
+                console.log(response.data.message)
                 setStatusMessage(response.data.message);
             } catch (error) {
                 console.error(error);
             }
-            await reload();
-            collectionDirRef.current.value = '';
-            collectionNameRef.current.value = '';
         }
     }
 
