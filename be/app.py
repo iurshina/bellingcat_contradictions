@@ -46,8 +46,6 @@ async def load_data(background_tasks: BackgroundTasks, request: DirectoryPath):
     background_tasks.add_task(create_collection(collection_name=request.collection_name, path=request.path))
     return {"message": "Data starting to load"}
 
- # возраст выхода на пенсию
-
 #  {
 #   "model_type": "openAI",
 #   "topic": "аль-Заркави",
@@ -60,12 +58,8 @@ def process(request: ModelRequest):
     contradictions = detect_contradictions(documents=documents, metadatas=metadatas, model_type=request.model_type)
     contr_in_context = fetch_context(request.collection_name, contradictions)
     print(contr_in_context)
-    return {"model_type": request.model_type, "topic": request.topic, "data": contr_in_context}
-    # return {"model_type": request.model_type, "topic": request.topic, "data": [(["Важные новости для российских пенсионеров и будущих пенсионеров были объявлены сегодня президентом России.", 
-    #                                                                              "В ходе специальной пресс-конференции, президент сообщил о стабильности пенсионной системы и уверил граждан, что в настоящее время нет планов по повышению возраста выхода на пенсию."], 1), 
-    #                                                                              (["Вчера, президент России Владимир Путин объявил о важном решении, которое затронет миллионы граждан страны.", 
-    #                                                                                "В ходе телевизионного выступления он подчеркнул, что пенсионный возраст будет постепенно повышаться.", 
-    #                                                                                "Это решение вызвало широкий резонанс в обществе и среди политических деятелей."], 2)]}
+    return {"model_type": request.model_type, "topic": request.topic, "data": contr_in_context}                                                                              "Это решение вызвало широкий резонанс в обществе и среди политических деятелей."], 2)]}
+
 
 @app.get("/collections/")
 def collections():
